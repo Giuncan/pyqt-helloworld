@@ -10,11 +10,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest]
         ptyhon-version: [3.10]
-    
+
+    runs-on: ${{ matrix.os }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -32,6 +34,5 @@ jobs:
       
       - name: Build exec
         run: |
-          pwd
-          source .venv/bin/activate      
+          poetry shell      
           pyinstaller --onefile --clean --windowed pyqt_helloworld/pyqt_helloworld.py
