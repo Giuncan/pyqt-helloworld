@@ -32,5 +32,6 @@ jobs:
       
       - name: Build exec
         run: |
+          pwd
           source .venv/bin/activate      
           pyinstaller --onefile --clean --windowed pyqt_helloworld/pyqt_helloworld.py
