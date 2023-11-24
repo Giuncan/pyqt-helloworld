@@ -47,3 +47,10 @@ jobs:
         run: |
           .\.venv\Scripts\activate.ps1
           pyinstaller --onefile --clean --windowed pyqt_helloworld\pyqt_helloworld.py
+
+      - name: Upload exe
+        uses: actions/upload-artifact@v3
+        with:
+          name: pyinstaller exe
+          path: |
+            dist
