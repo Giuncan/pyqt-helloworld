@@ -15,7 +15,7 @@ jobs:
         os:
         - Ubuntu-latest
         - Windows-latest
-        ptyhon-version:
+        python-version:
         - '3.10'
 
     runs-on: ${{ matrix.os }}
