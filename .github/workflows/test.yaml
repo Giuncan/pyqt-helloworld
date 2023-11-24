@@ -24,8 +24,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python (Linux)
-        # if: ${{ matrix.os == 'Ubuntu-latest' }}
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
@@ -36,11 +35,14 @@ jobs:
           pip install poetry
           poetry install 
       
-      - name: Build exec
+      - name: Build exec (Linux)
+        if: ${{ matrix.os == 'Ubuntu-latest' }}
         run: |
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            source .venv/bin/activate
-          elif [ "$RUNNER_OS" == "Windows" ]; then
-            .\.venv\Scripts\activate.ps1
-          fi      
+          source .venv/bin/activate
           pyinstaller --onefile --clean --windowed pyqt_helloworld/pyqt_helloworld.py
+          
+      - name: Build exec (Windows)
+        if: ${{ matrix.os == 'Windows-latest' }}
+        run: |
+          .\.venv\Scripts\activate.ps1
+          pyinstaller --onefile --clean --windowed pyqt_helloworld\pyqt_helloworld.py
