@@ -36,8 +36,8 @@ jobs:
           pip install poetry
           poetry install 
       
-      - name: Build exec (Linux)
-        if: ${{ matrix.os == 'ubuntu-latest' ||  }}
+      - name: Build exec (Linux & macOS)
+        if: ${{ matrix.os != 'windows-latest' }}
         run: |
           source .venv/bin/activate
           pyinstaller --onefile --clean --windowed pyqt_helloworld/pyqt_helloworld.py
