@@ -2,18 +2,38 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
+# https://circleci.com/docs/using-matrix-jobs/
+executors:
+  docker: # Docker using the Base Convenience Image
+    docker:
+      - image: python:3.10
+  linux: # a Linux VM running Ubuntu 20.04
+    machine:
+      image: ubuntu-2004:202107-02
+  # macos: # macos executor running Xcode
+  #   macos:
+  #     xcode: 14.2.0
+
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
   say-hello:
     # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/configuration-reference/#executor-job
-    docker:
-      - image: python:3.10
+    parameters:
+      os:
+        type: executor
+    executor: << parameters.os >>
+    
     # Add steps to the job
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
+      - when:
+          condition: equal: [ linux, <<parameters.os>> ]
+          steps:
+            - run: sudo apt install python3
       - run:
           name: "Install dependencies"
           command: |
@@ -34,4 +54,8 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - say-hello
+      - build:
+          matrix:
+            parameters:
+              python_version: ["3.10"]
+              platform: [docker, linux]
