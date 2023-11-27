@@ -47,7 +47,7 @@ jobs:
                   sudo wget https://www.python.org/ftp/python/3.10.11/Python-3.10.11.tgz
                   sudo tar xzvf Python-3.10.11.tgz
                   cd Python-3.10.11
-                  sudo ./configure
+                  sudo ./configure --enable-shared
                   sudo make
                   sudo make install
                   which python3
