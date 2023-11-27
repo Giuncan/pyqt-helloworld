@@ -39,7 +39,22 @@ jobs:
     # Add steps to the job
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
-      - checkout
+      - when:
+          condition:
+            equal: [ windows, <<parameters.platform>> ]
+            steps:
+              - run:
+                  name: "Windows checkout"
+                  command: |
+                    echo $CIRCLE_REPOSITORY_URL
+                    git clone $CIRCLE_REPOSITORY_URL
+                    dir
+      - when:
+          condition:
+            not:
+              equal: [ windows, <<parameters.platform>> ]
+              steps:
+                - checkout
       - when:
           condition:
             equal: [ linux, <<parameters.platform>> ]
