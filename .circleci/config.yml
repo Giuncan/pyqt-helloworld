@@ -49,7 +49,7 @@ jobs:
                     echo $CIRCLE_REPOSITORY_URL
                     git clone $CIRCLE_REPOSITORY_URL
                     dir
-      - when:
+      - unless:
           condition:
             not:
               equal: [ windows, <<parameters.platform>> ]
