@@ -40,7 +40,7 @@ jobs:
                 name: "Install python"
                 command: |
                   sudo apt install python3
-                  alias python=python3
+                  sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
       - run:
           name: "Install dependencies"
           command: |
