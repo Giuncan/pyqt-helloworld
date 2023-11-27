@@ -17,7 +17,7 @@ executors:
     resource_class: 'windows.medium'
     machine:
       image: 'windows-server-2022-gui:current'
-      shell: 'powershell.exe -ExecutionPolicy Bypass'
+      # shell: 'powershell.exe -ExecutionPolicy Bypass'
   macos: # macos executor running Xcode
     macos:
       xcode: 14.2.0
