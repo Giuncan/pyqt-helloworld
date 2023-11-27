@@ -13,9 +13,9 @@ executors:
   linux: # a Linux VM running Ubuntu 20.04
     machine:
       image: ubuntu-2004:202107-02
-  # macos: # macos executor running Xcode
-  #   macos:
-  #     xcode: 14.2.0
+  macos: # macos executor running Xcode
+    macos:
+      xcode: 14.2.0
 
 
 # Define a job to be invoked later in a workflow.
@@ -42,21 +42,21 @@ jobs:
             - run:
                 name: "Install python"
                 command: |
-                  # sudo apt-get install libssl-dev openssl make gcc
-                  # cd /opt
-                  # sudo wget https://www.python.org/ftp/python/3.10.11/Python-3.10.11.tgz
-                  # sudo tar xzvf Python-3.10.11.tgz
-                  # cd Python-3.10.11
-                  # sudo ./configure --enable-shared
-                  # sudo make
-                  # sudo make install
                   sudo apt update
                   sudo apt-get install -y build-essential git
                   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
                   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-                  brew install python@3.10
-                  ln -s /home/linuxbrew/.linuxbrew/bin/python3.10 /home/linuxbrew/.linuxbrew/bin/python
+                  brew install python@<<parameters.python_version>>
+                  ln -s /home/linuxbrew/.linuxbrew/bin/python<<parameters.python_version>> /home/linuxbrew/.linuxbrew/bin/python
                   echo 'export PATH=/home/linuxbrew/.linuxbrew/bin:"$PATH"' >> "$BASH_ENV"
+      - when:
+          condition:
+            equal: [ macos, <<parameters.platform>> ]
+          steps:
+            - run:
+                name: "Install python"
+                command: |
+                  brew install python@<<parameters.python_version>>
       - run:
           name: "Check python version"
           command: |
@@ -87,4 +87,4 @@ workflows:
           matrix:
             parameters:
               python_version: ["3.10"]
-              platform: [docker, linux]
+              platform: [docker, linux, macos]
