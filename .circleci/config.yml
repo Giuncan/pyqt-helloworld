@@ -46,7 +46,7 @@ jobs:
                   cd /opt
                   sudo wget https://www.python.org/ftp/python/3.10.11/Python-3.10.11.tgz
                   sudo tar xzvf Python-3.10.11.tgz
-                  cd Python
+                  cd Python-3.10.11
                   sudo ./configure
                   sudo make
                   sudo make install
