@@ -31,7 +31,8 @@ jobs:
     steps:
       - checkout
       - when:
-          condition: equal: [ linux, <<parameters.os>> ]
+          condition:
+            equal: [ linux, <<parameters.os>> ]
           steps:
             - run: sudo apt install python3
       - run:
