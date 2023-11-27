@@ -75,7 +75,7 @@ jobs:
           name: "Build exe"
           command: |
             source .venv/bin/activate
-            python3 -m pyinstaller --onefile --clean --windowed pyqt_helloworld/pyqt_helloworld.py
+            pyinstaller --onefile --clean --windowed pyqt_helloworld/pyqt_helloworld.py
       - store_artifacts:
           path: dist
 
