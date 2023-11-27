@@ -56,9 +56,13 @@ jobs:
                   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
                   brew install python@3.10
                   ln -s /home/linuxbrew/.linuxbrew/bin/python3.10 /home/linuxbrew/.linuxbrew/bin/python
-                  export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
-                  which python
-                  python --version
+                  echo 'export PATH=/home/linuxbrew/.linuxbrew/bin:"$PATH"' >> "$BASH_ENV"
+      - run:
+          name: "Check python version"
+          command: |
+            python --version
+            which python
+      
       - run:
           name: "Install dependencies"
           command: |
