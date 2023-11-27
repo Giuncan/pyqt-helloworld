@@ -14,6 +14,7 @@ executors:
     machine:
       image: ubuntu-2004:202107-02
   windows:
+    resource_class: 'windows.medium'
     machine:
       image: 'windows-server-2022-gui:current'
       shell: 'powershell.exe -ExecutionPolicy Bypass'
