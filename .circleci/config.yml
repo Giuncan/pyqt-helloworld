@@ -24,6 +24,8 @@ jobs:
     parameters:
       platform:
         type: string
+      python_version:
+        type: string
     executor: << parameters.platform >>
     
     # Add steps to the job
