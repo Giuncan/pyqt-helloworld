@@ -46,13 +46,12 @@ jobs:
             - run:
                 name: "Windows checkout"
                 command: |
-                  echo $CIRCLE_REPOSITORY_URL
-                  git clone $CIRCLE_REPOSITORY_URL
+                  echo << pipeline.trigger_parameters.github_app.repo_url >>
+                  git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >>
                   dir
       - unless:
           condition:
-            not:
-              equal: [ windows, <<parameters.platform>> ]
+            equal: [ windows, <<parameters.platform>> ]
           steps:
             - checkout
       - when:
