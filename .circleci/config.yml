@@ -84,7 +84,9 @@ jobs:
           steps:
             - run:
                 name: "Install python"
-                command: choco install python3 --version=<<parameters.python_version>> --yes --force --no-progress
+                command: |
+                  choco uninstall python3
+                  choco install python3 --version=<<parameters.python_version>> --yes --force --no-progress
                   
       - run:
           name: "Check python version"
