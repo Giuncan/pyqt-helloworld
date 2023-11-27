@@ -47,7 +47,7 @@ jobs:
                   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
                   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
                   brew install python@<<parameters.python_version>>
-                  ln -s /home/linuxbrew/.linuxbrew/bin/python<<parameters.python_version>> /home/linuxbrew/.linuxbrew/bin/python
+                  ln -s /home/linuxbrew/.linuxbrew/bin/python<<parameters.python_version>> /home/linuxbrew/.linuxbrew/bin/python3
                   echo 'export PATH=/home/linuxbrew/.linuxbrew/bin:"$PATH"' >> "$BASH_ENV"
       - when:
           condition:
@@ -57,23 +57,25 @@ jobs:
                 name: "Install python"
                 command: |
                   brew install python@<<parameters.python_version>>
+                  ln -s /usr/local/bin/python<<parameters.python_version>> /usr/local/bin/python3
+                  echo 'export PATH=/usr/local/bin:"$PATH"' >> "$BASH_ENV"
       - run:
           name: "Check python version"
           command: |
-            python --version
-            which python
+            python3 --version
+            which python3
       
       - run:
           name: "Install dependencies"
           command: |
-            python -m pip install --upgrade pip
-            python -m pip install poetry
-            python -m poetry install
+            python3 -m pip install --upgrade pip
+            python3 -m pip install poetry
+            python3 -m poetry install
       - run:
           name: "Build exe"
           command: |
             source .venv/bin/activate
-            pyinstaller --onefile --clean --windowed pyqt_helloworld/pyqt_helloworld.py
+            python3 -m pyinstaller --onefile --clean --windowed pyqt_helloworld/pyqt_helloworld.py
       - store_artifacts:
           path: dist
 
