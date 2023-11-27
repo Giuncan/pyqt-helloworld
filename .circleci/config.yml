@@ -55,7 +55,8 @@ jobs:
                   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
                   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
                   brew install python@3.10
-                  sudo update-alternatives --install /usr/bin/python python /home/linuxbrew/.linuxbrew/bin/python3.10 1
+                  ln -s /home/linuxbrew/.linuxbrew/bin/python3.10 /home/linuxbrew/.linuxbrew/bin/python
+                  export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
                   which python
                   python --version
       - run:
