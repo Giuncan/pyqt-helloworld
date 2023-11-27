@@ -44,12 +44,12 @@ jobs:
                 command: |
                   sudo apt-get install libssl-dev openssl make gcc
                   cd /opt
-                  wget https://www.python.org/ftp/python/3.10.11/Python-3.10.11.tgz
-                  tar xzvf Python-3.10.11.tgz
-                  cd Python-3.9.2
-                  ./configure
-                  make
-                  make install
+                  sudo wget https://www.python.org/ftp/python/3.10.11/Python-3.10.11.tgz -o Python.tgz
+                  sudo tar xzvf Python.tgz
+                  cd Python
+                  sudo ./configure
+                  sudo make
+                  sudo make install
                   which python3
                   python3 --version
       - run:
