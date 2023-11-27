@@ -36,9 +36,11 @@ jobs:
           condition:
             equal: [ linux, <<parameters.platform>> ]
           steps:
-            - run: |
-              sudo apt install python3
-              alias python=python3
+            - run:
+                name: "Install python"
+                command: |
+                  sudo apt install python3
+                  alias python=python3
       - run:
           name: "Install dependencies"
           command: |
