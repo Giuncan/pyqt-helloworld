@@ -90,8 +90,8 @@ jobs:
                   choco install pyenv-win --force --yes --no-progress
                   refreshenv
                   
-                  pyenv install <<parameters.python_version>>:latest
-                  pyenv global <<parameters.python_version>>:latest
+                  pyenv install <<parameters.python_version>>.0
+                  pyenv global <<parameters.python_version>>.0
                   $env:Path = 'C:\Users\circleci\.pyenv\pyenv-win\bin;C:\Users\circleci\.pyenv\pyenv-win\shims;' + $env:Path
                   python --version
                   # pip install --upgrade pip
