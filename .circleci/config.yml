@@ -90,16 +90,16 @@ jobs:
                   choco install pyenv-win --force --yes --no-progress
                   refreshenv
                   
-                  pyenv install <<parameters.python_version>>
-                  pyenv global <<parameters.python_version>>
+                  pyenv install <<parameters.python_version>>:latest
+                  pyenv global <<parameters.python_version>>:latest
                   $env:Path = 'C:\Users\circleci\.pyenv\pyenv-win\bin;C:\Users\circleci\.pyenv\pyenv-win\shims;' + $env:Path
                   python --version
-                  pip install --upgrade pip
-                  pip install poetry
-                  cd pyqt-helloworld
-                  poetry install
-                  poetry activate
-                  pyinstaller --onefile --clean --windowed pyqt_helloworld\pyqt_helloworld.py
+                  # pip install --upgrade pip
+                  # pip install poetry
+                  # cd pyqt-helloworld
+                  # poetry install
+                  # poetry activate
+                  # pyinstaller --onefile --clean --windowed pyqt_helloworld\pyqt_helloworld.py
       - unless:
           condition:
             equal: [ windows, <<parameters.platform>> ]
