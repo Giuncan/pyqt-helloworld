@@ -86,8 +86,10 @@ jobs:
                 name: "Install python"
                 shell: powershell.exe
                 command: |
-                  choco install pyenv-win --force -y
+                  Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+                  choco install pyenv-win --force --yes --no-progress
                   refreshenv
+                  
                   pyenv install <<parameters.python_version>>
                   pyenv global <<parameters.python_version>>
                   $env:Path = 'C:\Users\circleci\.pyenv\pyenv-win\bin;C:\Users\circleci\.pyenv\pyenv-win\shims;' + $env:Path
