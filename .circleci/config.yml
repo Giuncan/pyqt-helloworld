@@ -47,8 +47,9 @@ jobs:
                 name: "Windows checkout"
                 command: |
                   echo << pipeline.trigger_parameters.github_app.repo_url >>
-                  git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >>
-                  dir
+                  git clone -b "$CIRCLE_BRANCH" << pipeline.trigger_parameters.github_app.repo_url >> tmp_git_dir
+                  mv tmp_git_dir/* .
+                  rm tmp_git_dir
       - unless:
           condition:
             equal: [ windows, <<parameters.platform>> ]
@@ -96,9 +97,7 @@ jobs:
                   python --version
                   pip install --upgrade pip
                   pip install pyinstaller pyqt6
-                  cd pyqt-helloworld
                   python -m PyInstaller --onefile --clean --windowed pyqt_helloworld\pyqt_helloworld.py
-                  cp dist ..\
       - unless:
           condition:
             equal: [ windows, <<parameters.platform>> ]
