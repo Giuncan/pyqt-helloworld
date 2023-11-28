@@ -84,27 +84,41 @@ jobs:
           steps:
             - run:
                 name: "Install python"
+                shell: powershell.exe
                 command: |
-                  choco uninstall python3
-                  choco install python3 --version=<<parameters.python_version>> --yes --force --no-progress
-                  
-      - run:
-          name: "Check python version"
-          command: |
-            python3 --version
-            which python3
-      
-      - run:
-          name: "Install dependencies"
-          command: |
-            python3 -m pip install --upgrade pip
-            python3 -m pip install poetry
-            python3 -m poetry install
-      - run:
-          name: "Build exe"
-          command: |
-            source .venv/bin/activate
-            pyinstaller --onefile --clean --windowed pyqt_helloworld/pyqt_helloworld.py
+                  choco install pyenv-win --force
+                  refreshenv
+                  pyenv install <<parameters.python_version>>
+                  pyenv global <<parameters.python_version>>
+                  $env:Path = 'C:\Users\circleci\.pyenv\pyenv-win\bin;C:\Users\circleci\.pyenv\pyenv-win\shims;' + $env:Path
+                  python --version
+                  pip install --upgrade pip
+                  pip install poetry
+                  poetry install
+                  poetry activate
+                  pyinstaller --onefile --clean --windowed pyqt_helloworld\pyqt_helloworld.py
+      - unless:
+          condition:
+            equal: [ windows, <<parameters.platform>> ]
+          steps:
+            - run:
+                name: "Check python version"
+                command: |
+                  python3 --version
+                  which python3
+            
+            - run:
+                name: "Install dependencies"
+                command: |
+                  python3 -m pip install --upgrade pip
+                  python3 -m pip install poetry
+                  python3 -m poetry install
+            - run:
+                name: "Build exe"
+                command: |
+                  source .venv/bin/activate
+                  pyinstaller --onefile --clean --windowed pyqt_helloworld/pyqt_helloworld.py
+            
       - store_artifacts:
           path: dist
 
