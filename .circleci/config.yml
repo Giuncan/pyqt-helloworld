@@ -98,7 +98,7 @@ jobs:
                   pip install poetry
                   cd pyqt-helloworld
                   poetry install
-                  poetry activate
+                  poetry shell
                   pyinstaller --onefile --clean --windowed pyqt_helloworld\pyqt_helloworld.py
       - unless:
           condition:
