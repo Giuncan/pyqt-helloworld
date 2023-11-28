@@ -99,7 +99,7 @@ jobs:
                   cd pyqt-helloworld
                   poetry install
                   poetry shell
-                  pyinstaller --onefile --clean --windowed pyqt_helloworld\pyqt_helloworld.py
+                  python -m PyInstaller --onefile --clean --windowed pyqt_helloworld\pyqt_helloworld.py
       - unless:
           condition:
             equal: [ windows, <<parameters.platform>> ]
