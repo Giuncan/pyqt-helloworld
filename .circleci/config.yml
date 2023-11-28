@@ -86,7 +86,7 @@ jobs:
                 name: "Install python"
                 shell: powershell.exe
                 command: |
-                  choco install pyenv-win --force
+                  choco install pyenv-win --force -y
                   refreshenv
                   pyenv install <<parameters.python_version>>
                   pyenv global <<parameters.python_version>>
@@ -94,6 +94,7 @@ jobs:
                   python --version
                   pip install --upgrade pip
                   pip install poetry
+                  cd pyqt-helloworld
                   poetry install
                   poetry activate
                   pyinstaller --onefile --clean --windowed pyqt_helloworld\pyqt_helloworld.py
