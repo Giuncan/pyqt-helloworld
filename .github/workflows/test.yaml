@@ -42,10 +42,10 @@ jobs:
       - name: Tar files
         if: ${{ matrix.os != 'windows-latest' }}
         run: |
-          tar -czvf artifact.tgz dist/*
+          tar -czvf artifact_${{ matrix.os }}.tgz dist/*
           rm -rf dist/*
-          ls -ltr artifact.tgz
-          mv artifact.tgz dist/
+          ls -ltr artifact_${{ matrix.os }}.tgz
+          mv artifact_${{ matrix.os }}.tgz dist/
         
       - name: Upload exe
         uses: actions/upload-artifact@v3
