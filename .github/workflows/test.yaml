@@ -44,6 +44,7 @@ jobs:
         run: |
           tar -czvf artifact.tgz dist/*
           rm -rf dist/*
+          ls -ltr artifact.tgz
           mv artifact.tgz dist/
         
       - name: Upload exe
