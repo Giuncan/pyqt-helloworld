@@ -37,7 +37,7 @@ jobs:
       
       - name: Build exec (Linux & macOS)
         run: |
-          pyinstaller --onefile --clean --windowed pyqt_helloworld\pyqt_helloworld.py
+          pyinstaller --onefile --clean --windowed pyqt_helloworld/pyqt_helloworld.py
       
       - name: Tar files
         if: ${{ matrix.os != 'windows-latest' }}
