@@ -97,7 +97,7 @@ jobs:
                   $env:Path = 'C:\Users\circleci\.pyenv\pyenv-win\bin;C:\Users\circleci\.pyenv\pyenv-win\shims;' + $env:Path
                   python --version
                   pip install --upgrade pip
-                  pip install pyinstaller pyqt6
+                  python -m pip install -r requirements.txt
                   python -m PyInstaller --onefile --clean --windowed pyqt_helloworld\pyqt_helloworld.py
       - unless:
           condition:
@@ -113,12 +113,10 @@ jobs:
                 name: "Install dependencies"
                 command: |
                   python3 -m pip install --upgrade pip
-                  python3 -m pip install poetry
-                  python3 -m poetry install
+                  python3 -m pip install -r requirements.txt
             - run:
                 name: "Build exe"
                 command: |
-                  source .venv/bin/activate
                   pyinstaller --onefile --clean --windowed pyqt_helloworld/pyqt_helloworld.py
             
       - store_artifacts:
