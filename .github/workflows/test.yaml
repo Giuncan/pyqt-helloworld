@@ -49,12 +49,8 @@ jobs:
       - name: Test installer
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
-          echo "======="
-          find ./dist
-          echo "======="
-          cp dist/*/*/RCM .
           sudo apt-get install -y xvfb timeout
-          xvfb-run --auto-servernum timeout 1m ./RCM
+          xvfb-run --auto-servernum timeout 1m ./dist/pyqt_helloworld
       
       - name: Tar files
         if: ${{ matrix.os != 'windows-latest' }}
