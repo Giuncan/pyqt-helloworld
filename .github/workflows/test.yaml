@@ -25,6 +25,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install reps
+        if: {{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          sudo apt update
+          sudo apt install -y qtcreator qtbase5-dev qt5-qmake cmake
+          sudo apt list --installed
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
